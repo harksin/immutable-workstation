@@ -23,11 +23,24 @@ bat \
 ripgrep \
 fzf \
 fish \
+flameshot \
+
+#pm flameshot config (enable text)
+
+#add best terminal emulator
+sudo dnf copr enable -y pschyska/alacritty
+sudo dnf install -y alacritty
 
 #init I3/sway
 sudo dnf install -y \
 sway \
+swaylock \
+rofi \
 
+#minimal sway config
+! mkdir ~/.config/sway
+cp ./dotfiles/sway/config ~/.config/sway/config
+swaymsg reload
 
 #F31 fix: downgrade to cgroup v1
 sudo dnf install -y grubby
