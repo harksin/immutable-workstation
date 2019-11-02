@@ -24,6 +24,51 @@ ripgrep \
 fzf \
 fish \
 
+#init I3/sway
+sudo dnf install -y \
+sway \
+
+#minikube
+sudo dnf install -y \
+ridge-utils  \
+libvirt \
+virt-install \
+qemu-kvm \
+virt-manager \
+
+sudo systemctl enable libvirtd
+
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+&& chmod +x minikube
+
+sudo cp minikube /usr/local/bin && rm minikube
+
+NPROC=$(nproc)
+let minikube_cpus=NPROC/2         
+
+minikube config set cpus $minikube_cpus 
+
+
+let NRAM=$(grep MemTotal /proc/meminfo | awk '{print $2}')/1024
+let minikube_ram=NRAM/2
+minikube config set memory $minikube_ram 
+
+minikube config set disk-siz 90000MB
+minikube config set vm-driver kvm2
+
+#kubernetes tools
+
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+
+curl -LO https://git.io/get_helm.sh
+chmod 700 get_helm.sh
+./get_helm.sh
+rm ./get_helm.sh 
+
 #clean dotfile
 ! rm ~/.profile
 
@@ -52,6 +97,8 @@ wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-$JB_TOOLBOX_VERSIO
 tar -xvzf ./jetbrains-toolbox-$JB_TOOLBOX_VERSION.tar.gz
 ./jetbrains-toolbox-$JB_TOOLBOX_VERSION/jetbrains-toolbox
 rm -Rf ./jetbrains-toolbox-$JB_TOOLBOX_VERSION
+rm ./jetbrains-toolbox-$JB_TOOLBOX_VERSION.tar.gz
+
 
 #git config
 git config --global alias.cof $'!git for-each-ref --format=\''%\(refname:short\)\'' refs/heads | fzf | xargs git checkout'
