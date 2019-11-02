@@ -25,6 +25,8 @@ fzf \
 fish \
 flameshot \
 htop \
+snapd \
+
 
 #fish plugin
 #curl -L https://get.oh-my.fish | fish
@@ -117,6 +119,8 @@ rustup update
 #lpass show worstation-github  --field "Private Key" > ~/.ssh/workstation-github
 #chmod 600 ~/.ssh/workstation-github
 
+#gitkraken
+sudo snap install gitkraken
 
 #IDE
 export JB_TOOLBOX_VERSION=1.16.6016
