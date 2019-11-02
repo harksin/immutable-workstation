@@ -28,6 +28,12 @@ fish \
 sudo dnf install -y \
 sway \
 
+
+#F31 fix: downgrade to cgroup v1
+sudo dnf install -y grubby
+sudo grubby  --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+
+
 #minikube
 sudo dnf install -y \
 ridge-utils  \
