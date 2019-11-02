@@ -75,6 +75,8 @@ minikube config set memory $minikube_ram
 minikube config set disk-siz 90000MB
 minikube config set vm-driver kvm2
 
+sudo usermod --append --groups libvirt $(whoami)
+
 #kubernetes tools
 
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
