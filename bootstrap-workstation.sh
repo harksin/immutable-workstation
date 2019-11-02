@@ -24,6 +24,12 @@ ripgrep \
 fzf \
 fish \
 flameshot \
+htop \
+
+#fish plugin
+#curl -L https://get.oh-my.fish | fish
+#omf install bobthefish
+
 
 #pm flameshot config (enable text)
 
