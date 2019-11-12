@@ -32,7 +32,6 @@ snapd \
 SNAP_BIN=/var/lib/snapd/snap/bin
 
 
-
 #fish plugin
 #curl -L https://get.oh-my.fish | fish
 #omf install bobthefish
@@ -123,7 +122,9 @@ RUST_BIN="$HOME/.cargo/bin"
 #chmod 600 ~/.ssh/workstation-github
 
 #gitkraken
-sudo snap install gitkraken
+wget https://release.gitkraken.com/linux/gitkraken-amd64.rpm
+sudo dnf install -y ./gitkraken-amd64.rpm
+rm ./gitkraken-amd64.rpm
 
 #IDE
 ##IDEA
