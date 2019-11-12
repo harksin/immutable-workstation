@@ -27,6 +27,11 @@ flameshot \
 htop \
 snapd \
 
+! sudo ln -s /var/lib/snapd/snap /snap
+
+SNAP_BIN=/var/lib/snapd/snap/bin
+
+
 
 #fish plugin
 #curl -L https://get.oh-my.fish | fish
@@ -68,7 +73,8 @@ sudo systemctl enable libvirtd
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
 && chmod +x minikube
 
-sudo cp minikube /usr/local/bin && rm minikube
+! sudo cp minikube /usr/local/bin
+rm minikube
 
 NPROC=$(nproc)
 let minikube_cpus=NPROC/2         
@@ -103,14 +109,11 @@ rm ./get_helm.sh
 
 #init go
 ! mkdir -p $HOME/go
-echo 'export GOPATH=$HOME/go' >> $HOME/.profile
+echo "export GOPATH=$HOME/go" >> $HOME/.profile
 
 #init rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh 
-echo 'export PATH=$PATH:$HOME/.cargo/bin' >> $HOME/.profile
-. ~/.profile
-#todo fish conf
-rustup update
+RUST_BIN="$HOME/.cargo/bin"
 
 #init github
 #lpass login $1
@@ -123,16 +126,35 @@ rustup update
 sudo snap install gitkraken
 
 #IDE
+##IDEA
 export JB_TOOLBOX_VERSION=1.16.6016
 wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-$JB_TOOLBOX_VERSION.tar.gz
 tar -xvzf ./jetbrains-toolbox-$JB_TOOLBOX_VERSION.tar.gz
 ./jetbrains-toolbox-$JB_TOOLBOX_VERSION/jetbrains-toolbox
 rm -Rf ./jetbrains-toolbox-$JB_TOOLBOX_VERSION
 rm ./jetbrains-toolbox-$JB_TOOLBOX_VERSION.tar.gz
+##CODE
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 
+sudo dnf -y check-update
+sudo dnf -y install code
+
+
+#update PATH
+
+echo "export PATH=$PATH:$RUST_BIN:$SNAP_BIN" >> $HOME/.profile
+. ~/.profile
+
+echo "set -gx PATH $PATH $RUST_BIN $SNAP_BIN" >> $HOME/.config/fish/config.fish
 
 #git config
 git config --global alias.cof $'!git for-each-ref --format=\''%\(refname:short\)\'' refs/heads | fzf | xargs git checkout'
+
+
+#post install action
+rustup update
+
 
 #clean
 history -c
