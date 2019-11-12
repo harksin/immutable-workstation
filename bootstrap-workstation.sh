@@ -128,10 +128,11 @@ rm ./gitkraken-amd64.rpm
 
 #IDE
 ##IDEA
+! mkdir ~/jetbrains-toolbox
 export JB_TOOLBOX_VERSION=1.16.6016
 wget https://download.jetbrains.com/toolbox/jetbrains-toolbox-$JB_TOOLBOX_VERSION.tar.gz
 tar -xvzf ./jetbrains-toolbox-$JB_TOOLBOX_VERSION.tar.gz
-./jetbrains-toolbox-$JB_TOOLBOX_VERSION/jetbrains-toolbox
+! cp ./jetbrains-toolbox-$JB_TOOLBOX_VERSION/jetbrains-toolbox ~/jetbrains-toolbox
 rm -Rf ./jetbrains-toolbox-$JB_TOOLBOX_VERSION
 rm ./jetbrains-toolbox-$JB_TOOLBOX_VERSION.tar.gz
 ##CODE
@@ -144,10 +145,10 @@ sudo dnf -y install code
 
 #update PATH
 
-echo "export PATH=$PATH:$RUST_BIN:$SNAP_BIN" >> $HOME/.profile
+echo "export PATH=$PATH:$RUST_BIN:$SNAP_BIN:$HOME/jetbrains-toolbox" >> $HOME/.profile
 . ~/.profile
 
-echo "set -gx PATH $PATH $RUST_BIN $SNAP_BIN" >> $HOME/.config/fish/config.fish
+echo "set -gx PATH $PATH $RUST_BIN $SNAP_BIN $HOME/jetbrains-toolbox" >> $HOME/.config/fish/config.fish
 
 #git config
 git config --global alias.cof $'!git for-each-ref --format=\''%\(refname:short\)\'' refs/heads | fzf | xargs git checkout'
