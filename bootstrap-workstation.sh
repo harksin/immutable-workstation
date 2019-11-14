@@ -111,6 +111,7 @@ rm ./get_helm.sh
 
 #clean dotfile
 ! rm ~/.profile
+! rm ~/.config/fish/config.fish
 
 #init go
 ! mkdir -p $HOME/go
