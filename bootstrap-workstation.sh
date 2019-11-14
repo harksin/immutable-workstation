@@ -25,6 +25,8 @@ fzf \
 fish \
 flameshot \
 htop \
+gcc-c++ \
+clang \
 snapd \
 
 ! sudo ln -s /var/lib/snapd/snap /snap
