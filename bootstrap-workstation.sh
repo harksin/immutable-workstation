@@ -33,6 +33,10 @@ snapd \
 
 SNAP_BIN=/var/lib/snapd/snap/bin
 
+#brew
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+BREW_BIN=/home/linuxbrew/.linuxbrew/bin
+
 
 #fish plugin
 #curl -L https://get.oh-my.fish | fish
@@ -147,10 +151,10 @@ sudo dnf -y install code
 
 #update PATH
 
-echo "export PATH=$PATH:$RUST_BIN:$SNAP_BIN:$HOME/jetbrains-toolbox" >> $HOME/.profile
+echo "export PATH=$PATH:$RUST_BIN:$SNAP_BIN:$HOME/jetbrains-toolbox:$BREW_BIN" >> $HOME/.profile
 . ~/.profile
 
-echo "set -gx PATH $PATH $RUST_BIN $SNAP_BIN $HOME/jetbrains-toolbox" >> $HOME/.config/fish/config.fish
+echo "set -gx PATH $PATH $RUST_BIN $SNAP_BIN $HOME/jetbrains-toolbox $BREW_BIN" >> $HOME/.config/fish/config.fish
 
 #git config
 git config --global alias.cof $'!git for-each-ref --format=\''%\(refname:short\)\'' refs/heads | fzf | xargs git checkout'
